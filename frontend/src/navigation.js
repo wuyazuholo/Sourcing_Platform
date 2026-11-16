@@ -12,6 +12,7 @@ export function parseRoute(hash) {
   const params = Object.fromEntries(fields.filter(name => url.searchParams.has(name)).map(name => [name, url.searchParams.get(name)]))
   if (url.pathname === '/login') return { screen: 'login', method: url.searchParams.get('method') === 'phone' ? 'phone' : 'password' }
   if (url.pathname === '/register') return { screen: 'register' }
+  if (url.pathname === '/agent') return { screen: 'agent', ...( /^[a-f0-9]{32}$/.test(url.searchParams.get('job') || '') ? { job: url.searchParams.get('job') } : {}) }
   if (url.pathname === '/favorites' || url.pathname === '/compare') return { screen: url.pathname.slice(1) }
   const detail = url.pathname.match(/^\/suppliers\/exports\/([1-9][0-9]{0,18})$/)
   if (detail) return { ...params, screen: 'detail', recordId: detail[1] }
@@ -23,6 +24,7 @@ export function parseRoute(hash) {
 export function routeUrl(route) {
   if (route.screen === 'login') return '#/login' + (route.method === 'phone' ? '?method=phone' : '')
   if (route.screen === 'register') return '#/register'
+  if (route.screen === 'agent') return '#/agent' + (route.job && /^[a-f0-9]{32}$/.test(route.job) ? `?job=${route.job}` : '')
   if (['favorites', 'compare'].includes(route.screen)) return '#/' + route.screen
   if (route.screen === 'demo') return `#/demo/${route.view}/${encodeURIComponent(route.company || 'c1')}`
   const path = route.screen === 'detail' ? `/suppliers/exports/${encodeURIComponent(route.recordId)}` : '/suppliers'

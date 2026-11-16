@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "servers": [
+    {
+      "name": "demo",
+      "transport": "stdio",
+      "command": "{python}",
+      "args": ["-m", "sourcing_agent.mcp_demo_server"],
+      "cwd": ".",
+      "timeout_seconds": 30,
+      "tools": [
+        {
+          "name": "lookup_company",
+          "alias": "lookup",
+          "description": "查询虚构企业资料，仅作 MCP 本地联调",
+          "read_only": true
+        }
+      ]
+    }
+  ]
+}

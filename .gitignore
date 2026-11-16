@@ -6,3 +6,15 @@ test-results/
 .DS_Store
 .local/
 
+# Agent development and private local settings
+**/.venv/
+**/.runtime/
+**/__pycache__/
+**/*.py[codz]
+**/*.egg-info/
+**/.ruff_cache/
+**/.pytest_cache/
+**/.env
+**/.env.*
+!**/.env*.example
+

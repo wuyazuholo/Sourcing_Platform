@@ -24,6 +24,8 @@ public class SecurityConfig {
                                 "/api/auth/login/password", "/api/auth/login/phone", "/api/auth/sms-code").permitAll()
                         .requestMatchers("/api/auth/me", "/api/auth/logout").authenticated()
                         .requestMatchers("/api/data-source/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/agent/status", "/api/agent/searches/*").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/agent/searches").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/mexico/exports", "/api/mexico/exports/*").authenticated()
                         .anyRequest().denyAll())
                 .securityContext(context -> context.securityContextRepository(repository))

@@ -30,6 +30,13 @@ test('addresses preserve search conditions, leading zeros, cursor and exact deta
   assert.equal(parseRoute('#/unknown').screen, 'discover')
 })
 
+test('agent job URLs recover opaque IDs without placing trade data in history', () => {
+  const job = '1234567890abcdef1234567890abcdef'
+  assert.deepEqual(parseRoute(routeUrl({ screen: 'agent', job })), { screen: 'agent', job })
+  assert.deepEqual(parseRoute('#/agent?job=../../other'), { screen: 'agent' })
+  assert.equal(routeUrl({ screen: 'agent' }), '#/agent')
+})
+
 test('back and forward restore page state without leaking data into history', () => {
   let state = { hs: '8544', mode: 'table', page: 1, items: [{ supplier: 'temporary trade data' }] }
   const stop = registerPageState('mexico', () => state, saved => { state = saved })

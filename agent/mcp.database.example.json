@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "servers": [{
+    "name": "trades",
+    "transport": "stdio",
+    "command": "{python}",
+    "args": ["-m", "sourcing_agent", "database", "serve", "--env-file", ".env.database.local", "--state-dir", ".runtime/database-mcp"],
+    "cwd": ".",
+    "timeout_seconds": 30,
+    "tools": [{
+      "name": "search_trade_suppliers",
+      "alias": "search",
+      "description": "只读查询真实墨西哥出口 panjivaMXExport 供应商交易。默认仅检索最近 20 万条源记录；按 HS、日期、目的国筛选，返回独立保存的交易证据。",
+      "read_only": true
+    }]
+  }]
+}
